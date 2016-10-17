@@ -20,23 +20,23 @@ y: P
 |-
 c /= y
 *)
-  Parameter someType: Type (* someType is, for examle, nat.*).
-  Parameter propForP: someType -> Prop.
-  Definition P:= {x: someType | propForP x}.
+  Parameter someSet: Type (* someSet is, for examle, nat.*).
+  Parameter propForP: someSet -> Prop.
+  Definition P:= {x: someSet | propForP x} (* equiv to sig prppForP *).
   Parameter kinv: relation P.
 
-  (* x $B":(B P *)
-  (* y $B":(B P *)
-  (* c $B":(B P *)
+  (* x ∈ P
+     y ∈ P
+     c ∈ P *)
   Parameter x y c: P.
-  (* $B"L(B y |-> x: k~ *)
+  (* ¬ y |-> x: k~ *)
   Axiom nkinv: not (kinv y x).
   (* k~[{c}] = P \ {c} *)
   Axiom a2: forall e: P, e <> c -> kinv c e.
-  (* x $B!b(B y *)
+  (* x ≠ y *)
   Axiom df: x <> y.
 
-  (* c $B!b(B y *)
+  (* c ≠ y *)
   Lemma c_isnot_y: c <> y.
   Proof.
     intros Heq.
