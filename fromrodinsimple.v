@@ -20,24 +20,24 @@ y: P
 |-
 c /= y
 *)
-  (* more simplified:
-not y |-> x: kinv
-kinv [{c}] = nat \ {c}
-x /= y
-x: nat
-y: nat
-|-
-c /= y
-*)
-  
-  Parameter (x y c: nat).
-  Parameter kinv: relation nat.
+  Parameter someType: Type (* someType is, for examle, nat.*).
+  Parameter propForP: someType -> Prop.
+  Definition P:= {x: someType | propForP x}.
+  Parameter kinv: relation P.
 
+  (* x ∈ P *)
+  (* y ∈ P *)
+  (* c ∈ P *)
+  Parameter x y c: P.
+  (* ¬ y |-> x: k~ *)
   Axiom nkinv: not (kinv y x).
-  Axiom a2: forall e: nat, e <> c -> kinv c e.
+  (* k~[{c}] = P \ {c} *)
+  Axiom a2: forall e: P, e <> c -> kinv c e.
+  (* x ≠ y *)
   Axiom df: x <> y.
 
-  Lemma cisnty: c <> y.
+  (* c ≠ y *)
+  Lemma c_isnot_y: c <> y.
   Proof.
     intros Heq.
     apply nkinv.
@@ -47,11 +47,4 @@ c /= y
     apply df.
     apply (eq_trans Heq2 Heq).
   Qed.
-  
-(*
-Axiom df: x <> y.
-Axiom comp: forall v: nat, P v. (* -> Q v.*)
-Axiom nk: (x, y)  kinv.
-Axiom a2: kinv {c} = nat \ {c}.
-*)
 End fromrodin.
