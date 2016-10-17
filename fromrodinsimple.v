@@ -2,7 +2,7 @@ Require Import Relation_Definitions.
 Require Import Nat.
 
 Section fromrodin.
-(*
+(* ↓ 元のシーケント
 not x |-> y: k
 Q <: P
 k~ [{c}]=P \ {c}
@@ -12,6 +12,7 @@ x: Q
 c /= y
  *)
   (* simplified:
+   ↓ 少し単純化したシーケント
 not y |-> x: kinv
 kinv [{c}] = P \ {c}
 x /= y
@@ -36,7 +37,7 @@ c /= y
   (* x ≠ y *)
   Axiom df: x <> y.
 
-  (* c ≠ y *)
+  (* c ≠ y の証明 *)
   Lemma c_isnot_y: c <> y.
   Proof.
     intros Heq.
