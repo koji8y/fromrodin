@@ -1,5 +1,5 @@
 Require Import Relation_Definitions.
-Require Import Nat.
+(* Require Import Nat. *)
 
 Section fromrodin.
 (* ↓ 元のシーケント
@@ -21,7 +21,7 @@ y: P
 |-
 c /= y
 *)
-  Parameter someSet: Type (* someSet is, for examle, nat.*).
+  Parameter someSet: Set (* someSet is, for examle, nat.*).
   Parameter propForP: someSet -> Prop.
   Definition P:= {x: someSet | propForP x} (* equiv to sig prppForP *).
   Parameter kinv: relation P.
