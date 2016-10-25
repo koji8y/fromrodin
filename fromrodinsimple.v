@@ -24,6 +24,25 @@ c /= y
   Parameter someSet: Set (* someSet is, for examle, nat.*).
   Parameter propForP: someSet -> Prop.
   Definition P:= {x: someSet | propForP x} (* equiv to sig prppForP *).
+
+  (* 上記シーケントの証明 *)
+  Lemma c_isnot_y:
+    forall kinv: relation P, forall x y c: P,
+      not (kinv y x) ->
+      (forall e: P, e <> c -> kinv c e) ->
+      x <> y ->
+      c <> y.
+  Proof.
+    intros kinv x y c nkinv a2 df.
+    intros Heq.
+    apply nkinv.
+    rewrite <- Heq.
+    apply a2.
+    intro Heq2.
+    apply df.
+    apply (eq_trans Heq2 Heq).
+  Qed.
+    
   Parameter kinv: relation P.
 
   (* x ∈ P
@@ -38,7 +57,7 @@ c /= y
   Axiom df: x <> y.
 
   (* c ≠ y の証明 *)
-  Lemma c_isnot_y: c <> y.
+  Lemma c_isnot_y': c <> y.
   Proof.
     intros Heq.
     apply nkinv.
@@ -48,4 +67,5 @@ c /= y
     apply df.
     apply (eq_trans Heq2 Heq).
   Qed.
+
 End fromrodin.
